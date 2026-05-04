@@ -1,0 +1,210 @@
+
+.services-header {
+  max-width: 900px;
+  margin: 0 auto 5rem;
+  text-align: center;
+  padding: 0 2rem;
+}
+
+.services-kicker {
+  display: inline-block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--accent);
+  margin-bottom: 1.5rem;
+}
+
+.section-title {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  margin-bottom: 1.5rem;
+  color: var(--text-main);
+  font-weight: 700;
+}
+
+.services-intro {
+  color: var(--text-muted);
+  font-size: 1.15rem;
+  line-height: 1.8;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.services-grid {
+  /* Torniamo a usare CSS Grid, impostando 2 colonne di uguale larghezza */
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 3rem 2rem; /* 3rem di spazio verticale, 2rem orizzontale */
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+
+  .service-card {
+    position: relative;
+    cursor: pointer;
+    width: 100%;
+    height: 400px; /* Abbassata a 400px per mantenere una bella proporzione rettangolare */
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(15, 23, 42, 0.1);
+    isolation: isolate;
+
+    /* L'immagine di sfondo (Stato Iniziale Nascosto) */
+    .service-media {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      opacity: 0;
+      transform: scale(1.1);
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      &::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to top, rgba(15, 23, 42, 0.95) 0%, rgba(15, 23, 42, 0.3) 60%, transparent 100%);
+        opacity: 0;
+      }
+    }
+
+    /* Il testo (Stato Iniziale Nascosto e spinto in basso) */
+    .service-content {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      height: 100%;
+      padding: 2.5rem; /* Leggermente ridotto rispetto alla colonna singola */
+      background: transparent;
+      opacity: 0;
+      transform: translateY(40px);
+
+      .service-category {
+        align-self: flex-start;
+        font-size: 0.8rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        color: #ffffff;
+        margin-bottom: 1rem;
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(4px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 999px;
+        padding: 0.4rem 0.9rem;
+      }
+
+      h3 {
+        font-size: clamp(1.4rem, 2vw, 1.8rem); /* Titolo proporzionato per le 2 colonne */
+        font-weight: 700;
+        color: #ffffff;
+        margin-bottom: 0.8rem;
+        line-height: 1.2;
+
+        .icon {
+          margin-right: 0.6rem;
+        }
+      }
+
+      p {
+        color: rgba(255, 255, 255, 0.85);
+        font-size: 1rem;
+        line-height: 1.5;
+        margin-bottom: 1.5rem;
+        /* Tronca il testo a 3 righe se è troppo lungo per evitare disallineamenti */
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+
+      .more-link {
+        color: #93c5fd;
+        font-size: 0.95rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-top: auto;
+
+        &::after {
+          content: '→';
+          transition: transform 0.3s ease;
+        }
+      }
+    }
+
+    /* --- L'ANIMAZIONE IN SEQUENZA (Si attiva con Angular) --- */
+    &.is-visible {
+      .service-media {
+        opacity: 1;
+        transform: scale(1);
+        transition: opacity 1.2s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+
+        &::after {
+          opacity: 1;
+          transition: opacity 1s ease 0.4s;
+        }
+      }
+
+      .service-content {
+        opacity: 1;
+        transform: translateY(0);
+        /* Il testo appare mezzo secondo dopo l'immagine */
+        transition: opacity 1s cubic-bezier(0.22, 1, 0.36, 1) 0.5s,
+        transform 1s cubic-bezier(0.22, 1, 0.36, 1) 0.5s;
+      }
+    }
+
+    /* Hover Effect */
+    &:hover {
+      box-shadow: 0 25px 50px rgba(15, 23, 42, 0.2);
+
+      .service-media img {
+        transform: scale(1.05);
+      }
+
+      .more-link {
+        color: #ffffff;
+
+        &::after {
+          transform: translateX(6px);
+        }
+      }
+    }
+  }
+}
+
+/* --- RESPONSIVE: Da Tablet in giù, si trasforma automaticamente in 1 colonna --- */
+@media (max-width: 900px) {
+  .services-grid {
+    grid-template-columns: 1fr; /* Torna a 1 colonna su schermi piccoli */
+    gap: 2rem;
+    padding: 0 1.5rem;
+
+    .service-card {
+      height: 380px;
+
+      .service-content {
+        padding: 2rem;
+      }
+    }
+  }
+}
+
+

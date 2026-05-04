@@ -1,0 +1,51 @@
+<header class="header">
+    <div class="logo">
+        <a routerLink="/home">
+            <img ngSrc="../../../assets/images/logoBocconi.png" alt="BOCCONI COMMERCIO e METALMECCANICA SRL" width="1600" height="489" priority>
+        </a>
+    </div>
+
+    <button class="mobile-menu-toggle" (click)="toggleMenu()" [class.active]="isMenuOpen">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+
+    <nav class="nav" [class.open]="isMenuOpen">
+        <ul>
+            <li><a [routerLink]="['/home']" fragment="home" routerLinkActive="active"
+                   (click)="closeMenu()">{{ 'HEADER.HOME' | translate }}</a></li>
+            <li><a [routerLink]="['/home']" fragment="about" routerLinkActive="active"
+                   (click)="closeMenu()">{{ 'HEADER.ABOUT' | translate }}</a></li>
+            <li><a [routerLink]="['/home']" fragment="services" routerLinkActive="active"
+                   (click)="closeMenu()">{{ 'HEADER.SERVICES' | translate }}</a></li>
+            <li><a [routerLink]="['/home']" fragment="contact" routerLinkActive="active"
+                   (click)="closeMenu()">{{ 'HEADER.CONTACT' | translate }}</a></li>
+            @if (user$ | async; ) {
+                <li class="user-menu-container">
+                    <div class="user-avatar" (click)="toggleUserMenu($event)">
+                        BC
+                    </div>
+
+                    @if (isUserMenuOpen) {
+                        <div class="user-dropdown glass-card fade-in">
+                            <div class="user-details">
+                                <p class="full-name">BOCCONI COMMERCIO e METALMECCANICA Srl</p>
+                            </div>
+                            <div class="dropdown-divider"></div>
+                            <button (click)="logout()" class="dropdown-item logout">
+                                <i class="icon-logout"></i> {{ 'AUTH.LOGOUT' | translate }}
+                            </button>
+                        </div>
+                    }
+                </li>
+            }
+
+            <li class="lang-selector">
+                <button (click)="changeLang('it')" [class.active]="currentLang === 'it'">IT</button>
+                <span>|</span>
+                <button (click)="changeLang('en')" [class.active]="currentLang === 'en'">EN</button>
+            </li>
+        </ul>
+    </nav>
+</header>

@@ -26,3 +26,7 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+/.idea/modules.xml
+/.idea/vcs.xml
+*.css
+*.css.map

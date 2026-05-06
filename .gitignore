@@ -30,3 +30,4 @@ yarn-error.log*
 /.idea/vcs.xml
 *.css
 *.css.map
+/.idea/watcherTasks.xml

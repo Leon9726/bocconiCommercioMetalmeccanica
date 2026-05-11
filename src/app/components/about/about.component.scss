@@ -6,7 +6,7 @@
   width: 100%;
   box-sizing: border-box;
 
-  /* Immagine di sfondo a colori naturali */
+  /* --- SFONDO (Sempre visibile da subito) --- */
   &::before {
     content: '';
     position: absolute;
@@ -18,7 +18,6 @@
     z-index: 0;
   }
 
-  /* Overlay leggero per leggibilità senza coprire i colori */
   &::after {
     content: '';
     position: absolute;
@@ -27,11 +26,53 @@
     z-index: 1;
   }
 
-  /* Contenuto sopra l'overlay */
+  /* Assicura che i testi siano sopra l'overlay */
   > * {
     position: relative;
     z-index: 2;
   }
+
+  /* =========================================
+     LOGICA DI ANIMAZIONE SEQUENZIALE
+  ========================================= */
+
+  /* 1. STATO INIZIALE: Titolo e Card partono trasparenti e spostati in basso */
+  .section-title,
+  .about-card,
+  .mission-card {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  }
+
+  /* 2. STATO VISIBILE: Quando l'Observer aggiunge la classe .is-visible */
+  &.is-visible {
+
+    .section-title {
+      opacity: 1;
+      transform: translateY(0);
+      /* Aspetta quasi mezzo secondo per far ammirare l'immagine di sfondo */
+      transition-delay: 0.4s;
+    }
+
+    .about-card {
+      opacity: 1;
+      transform: translateY(0);
+      /* La prima sezione esce nettamente dopo il titolo */
+      transition-delay: 0.6s;
+    }
+
+    .mission-card {
+      opacity: 1;
+      transform: translateY(0);
+      /* La seconda sezione aspetta che la prima sia quasi a posto prima di uscire */
+      transition-delay: 1.0s;
+    }
+  }
+
+  /* =========================================
+     STILI DEL LAYOUT ORIGINALE
+  ========================================= */
 
   .section-title {
     font-size: clamp(2.5rem, 6vw, 3.5rem);
@@ -47,33 +88,28 @@
     max-width: 1400px;
     margin: 0 auto;
 
-    .about-card {
+    /* Stili condivisi per le Glass Card */
+    .about-card, .mission-card {
       background: rgba(255, 255, 255, 0.12);
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
       border: 1px solid rgba(255, 255, 255, 0.2);
       border-radius: 24px;
       padding: 2rem;
+    }
 
-      p {
-        margin-bottom: 1.5rem;
-        font-size: 1.1rem;
-        color: #e2e8f0;
-        line-height: 1.8;
+    .about-card p {
+      margin-bottom: 1.5rem;
+      font-size: 1.1rem;
+      color: #e2e8f0;
+      line-height: 1.8;
 
-        &:last-child {
-          margin-bottom: 0;
-        }
+      &:last-child {
+        margin-bottom: 0;
       }
     }
 
     .mission-card {
-      background: rgba(255, 255, 255, 0.12);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: 24px;
-      padding: 2rem;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -92,10 +128,7 @@
         margin-bottom: 1.5rem;
         color: #93c5fd;
 
-        svg {
-          width: 32px;
-          height: 32px;
-        }
+        svg { width: 32px; height: 32px; }
       }
 
       h3 {
@@ -112,6 +145,7 @@
   }
 }
 
+/* --- RESPONSIVE MOBILE --- */
 @media (max-width: 992px) {
   .about .about-grid {
     grid-template-columns: 1fr;

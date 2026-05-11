@@ -1,16 +1,20 @@
+/* =========================================
+   HEADER PREMIUM (DARK & GLASS)
+========================================= */
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: rgba(255, 255, 255, 0.98);
-  backdrop-filter: blur(20px);
-  color: var(--primary);
+  /* Sfondo scuro semi-trasparente */
+  background: rgba(15, 23, 42, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   position: fixed;
   width: 100%;
   top: 0;
   left: 0;
   z-index: 1000;
-  border-bottom: 1px solid var(--border-color);
+  //border-bottom: 1px solid rgba(255, 255, 255, 0.05); /* Bordo impercettibile */
   padding: 0.75rem 0;
   transition: all 0.3s ease;
 
@@ -24,12 +28,15 @@
       img {
         height: auto;
         width: 16rem;
-        filter: none;
+        /* Trasforma il PNG trasparente in bianco puro con un'ombra sagomata */
+        filter: brightness(0) invert(1) drop-shadow(0 4px 6px rgba(0, 0, 0, 0.5));
         transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         object-fit: contain;
 
         &:hover {
           transform: scale(1.05);
+          /* Bagliore azzurro al passaggio del mouse */
+          filter: brightness(0) invert(1) drop-shadow(0 0 12px rgba(0, 210, 255, 0.6));
         }
       }
     }
@@ -44,10 +51,11 @@
       gap: 1.5rem;
       margin: 0;
       padding: 0;
+      align-items: center;
       transition: all 0.3s ease;
 
       li a {
-        color: var(--text-main);
+        color: #e2e8f0; /* Testo chiaro per contrastare lo sfondo scuro */
         text-decoration: none;
         padding: 0.5rem 0;
         font-weight: 500;
@@ -64,28 +72,21 @@
           left: 0;
           width: 0;
           height: 1px;
-          background: var(--accent);
+          background: #00d2ff; /* Linea azzurra hover */
           transition: width 0.3s ease;
         }
 
+        /* Effetto hover (rimossa classe .active fissa) */
         &:hover {
-          color: var(--accent);
+          color: #00d2ff;
           background: none;
           &::after {
             width: 100%;
           }
         }
-
-        /*&.active {
-          background: none;
-          color: var(--accent);
-          box-shadow: none;
-          &::after {
-            width: 100%;
-          }
-        }*/
       }
 
+      /* Menu Profilo Utente */
       .user-menu-container {
         position: relative;
         display: flex;
@@ -120,7 +121,7 @@
           top: calc(100% + 15px);
           right: 0;
           width: 240px;
-          background: rgba(10, 22, 40, 0.97);
+          background: rgba(10, 22, 40, 0.97); /* Già perfettamente dark theme */
           border: 1px solid rgba(59, 130, 246, 0.2);
           border-radius: 16px;
           padding: 1rem;
@@ -195,86 +196,7 @@
         }
       }
 
-      .user-menu-container {
-        margin-left: 0;
-        //width: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-
-        .user-avatar {
-          width: 38px;
-          height: 38px;
-          border-radius: 50%;
-          background: linear-gradient(135deg, #3b82f6, #1d4ed8);
-          color: white;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          font-weight: 700;
-          font-size: 0.85rem;
-          cursor: pointer;
-        }
-
-        .user-dropdown {
-          position: absolute;
-          top: 45px;
-          left: 0;
-          width: 220px;
-          background: rgba(10, 22, 40, 0.97);
-          backdrop-filter: blur(10px);
-          box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-          border: 1px solid rgba(59, 130, 246, 0.2);
-          border-radius: 12px;
-          padding: 0.8rem;
-          z-index: 1100;
-
-          &::before {
-            display: none;
-          }
-
-          .user-details {
-            padding-bottom: 0.5rem;
-            .full-name {
-              font-size: 0.95rem;
-              font-weight: 600;
-              color: white;
-            }
-            .user-email {
-              font-size: 0.75rem;
-              color: #94a3b8;
-            }
-          }
-
-          .dropdown-divider {
-            height: 1px;
-            background: rgba(59, 130, 246, 0.15);
-            margin: 0.5rem -0.8rem;
-          }
-
-          .dropdown-item {
-            margin-top: 0.3rem;
-            padding: 0.6rem;
-            width: 100%;
-            text-align: left;
-            background: none;
-            border: none;
-            color: #ff4d4d;
-            font-weight: 500;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            border-radius: 8px;
-            transition: background 0.2s;
-
-            &:hover {
-              background: rgba(255, 77, 77, 0.1);
-            }
-          }
-        }
-      }
-
+      /* Selettore Lingua */
       .lang-selector {
         display: flex;
         align-items: center;
@@ -294,18 +216,19 @@
           transition: all 0.3s;
 
           &:hover {
-            color: #2563eb;
+            color: #00d2ff;
           }
 
           &.active {
-            color: #2563eb;
-            background: rgba(37, 99, 235, 0.1);
+            color: #00d2ff;
+            background: rgba(0, 210, 255, 0.1); /* Sfondo azzurrino chiaro */
           }
         }
       }
     }
   }
 
+  /* Hamburger Menu Mobile */
   .mobile-menu-toggle {
     display: none;
     flex-direction: column;
@@ -315,12 +238,14 @@
     cursor: pointer;
     padding: 10px;
     z-index: 1001;
+    margin-right: 1rem;
 
     span {
       display: block;
       width: 25px;
       height: 3px;
-      background-color: var(--text-main);
+      background-color: #fff; /* Linee bianche con leggero bagliore */
+      filter: drop-shadow(0 0 5px rgba(0, 210, 255, 0.3));
       transition: all 0.3s ease;
     }
 
@@ -332,19 +257,26 @@
   }
 }
 
+/* =========================================
+   RESPONSIVE MOBILE
+========================================= */
 @media (max-width: 768px) {
   .header {
-    padding: 0.5rem 1rem;
+    padding: 0.5rem 0; /* Rimosso padding orizzontale */
     flex-direction: row;
     justify-content: space-between;
 
     .logo {
-      padding-left: 0;
-      display: flex;
-      align-items: center;
-      img {
-        height: 50px;
-        width: auto;
+      padding-left: 1rem;
+
+      /* Corretto il path di specificità CSS per sovrascrivere il desktop! */
+      a {
+        display: flex;
+        align-items: center;
+        img {
+          height: 45px;
+          width: auto;
+        }
       }
     }
 
@@ -354,37 +286,31 @@
 
     .nav {
       position: fixed;
-      top: 15px;
+      top: 0;
       right: -100%;
       width: 280px;
-      height: auto;
-      max-height: calc(100vh - 30px);
-      background: rgba(255, 255, 255, 0.97);
+      height: 100vh;
+      max-height: 100vh;
+      background: rgba(15, 23, 42, 0.95); /* Sfondo menu mobile dark */
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
       transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-      padding: 60px 20px 30px;
-      border-radius: 24px;
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(59, 130, 246, 0.15);
+      padding: 90px 20px 30px;
+      border-radius: 0;
+      box-shadow: -10px 0 40px rgba(0, 0, 0, 0.5);
       display: flex;
-      justify-content: center;
+      justify-content: flex-start;
       align-items: flex-start;
-      margin-right: 15px;
+      margin-right: 0;
       z-index: 1000;
+      border-left: 1px solid rgba(255, 255, 255, 0.05);
 
       &.open {
         right: 0;
       }
 
       &::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 4px;
-        background: linear-gradient(90deg, #3b82f6, #1d4ed8);
-        border-radius: 24px 24px 0 0;
+        display: none; /* Rimosso bordo colorato in alto, non serve */
       }
 
       ul {
@@ -407,16 +333,26 @@
             padding: 0.8rem 1.2rem;
             width: 100%;
             border-radius: 12px;
-            color: #475569;
+            color: #cbd5e1; /* Testo chiaro */
 
-            &.active {
-              /*background: rgba(37, 99, 235, 0.08);
-              color: #2563eb;*/
-              box-shadow: none;
-              text-decoration: none;
-              font-weight: 600;
+            &:hover {
+              color: #00d2ff;
+              background: rgba(0, 210, 255, 0.05);
             }
           }
+        }
+
+        /* Allineamento menu profilo utente da mobile */
+        .user-menu-container {
+          margin-left: 1.2rem;
+          margin-top: 0.5rem;
+          margin-bottom: 0.5rem;
+        }
+
+        /* Allineamento lingua da mobile */
+        .lang-selector {
+          margin-left: 1.2rem;
+          margin-top: 1rem;
         }
       }
 
@@ -424,7 +360,8 @@
         opacity: 1;
         transform: translateX(0);
 
-        @for $i from 1 through 5 {
+        /* Aumentato a 8 per coprire tutte le voci (incluso menu utente e lingue) */
+        @for $i from 1 through 8 {
           &:nth-child(#{$i}) {
             transition-delay: #{0.1 + ($i * 0.05)}s;
           }
